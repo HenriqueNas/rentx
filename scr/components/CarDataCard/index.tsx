@@ -5,7 +5,6 @@ import Gasoline from '../../assets/gasoline.svg';
 
 import {
 	Container,
-	Details,
 	Brand,
 	Model,
 	Info,
@@ -30,7 +29,7 @@ interface Props {
 	data: CarData;
 }
 
-export function CarDetailsCard({ data }: Props) {
+export function CarDataCard({ data }: Props) {
 	return (
 		<Container>
 			<Div>
