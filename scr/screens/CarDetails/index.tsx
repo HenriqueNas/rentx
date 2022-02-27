@@ -1,16 +1,20 @@
 import React from 'react';
 
-import { CarData } from '../../components/CarDataCard';
-import { GoBackButton } from '../../components/GoBackButton';
-import { ImageSlider } from '../../components/ImageSlider';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { useAppNavigation } from '../../hooks/navigation';
+
+import { Button } from '../../components/Button';
 import { Optinal } from '../../components/Optinal';
+import { CarData } from '../../components/CarDataCard';
+import { ImageSlider } from '../../components/ImageSlider';
+import { GoBackButton } from '../../components/GoBackButton';
 
 import Speed from '../../assets/speed.svg';
-import Acceleration from '../../assets/acceleration.svg';
 import Force from '../../assets/force.svg';
+import People from '../../assets/people.svg';
 import Gasoline from '../../assets/gasoline.svg';
 import Exchange from '../../assets/exchange.svg';
-import People from '../../assets/people.svg';
+import Acceleration from '../../assets/acceleration.svg';
 
 import {
 	Container,
@@ -24,25 +28,27 @@ import {
 	Price,
 	OptionalGrid,
 	Description,
+	Footer,
 } from './styles';
+import { AppStackParams } from '../../routes/routes';
+
+type CarDatailsRouteProps = RouteProp<AppStackParams, 'CarDetails'>;
 
 export function CarDetails() {
-	const data: CarData = {
-		brand: 'audi',
-		model: 'RS 5 Coupé',
-		fuel: 'energy',
-		rent: {
-			period: 'ao dia',
-			price: 120,
-		},
-		thumbnail:
-			'https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b-450x299.png',
-	};
+	const {
+		params: { data },
+	} = useRoute<CarDatailsRouteProps>();
+	const navigation = useAppNavigation();
+
 	const slids = [
 		'https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b-450x299.png',
 		// 'https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b-450x299.png',
 		// 'https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b-450x299.png',
 	];
+
+	function handleNavigate() {
+		navigation.navigate('Scheduling');
+	}
 
 	return (
 		<Container>
@@ -80,6 +86,10 @@ export function CarDetails() {
 					para quem gosta de acelerar.
 				</Description>
 			</Details>
+
+			<Footer>
+				<Button title="Escolha o período do aluguel" onPress={handleNavigate} />
+			</Footer>
 		</Container>
 	);
 }

@@ -1,7 +1,7 @@
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
 	align-items: center;
 	flex-direction: row;
 	justify-content: space-between;
@@ -60,7 +60,7 @@ export const CarImage = styled.Image.attrs({
 	resizeMode: 'contain',
 })`
 	width: 167px;
-	height: 85 px;
+	height: 85px;
 `;
 
 export const Div = styled.View``;

@@ -14,10 +14,10 @@ import {
 	Archivo_600SemiBold,
 } from '@expo-google-fonts/archivo';
 
+import { Routes } from './scr/routes';
 import theme from './scr/styles/theme';
-
 import { Home } from './scr/screens/Home';
-import { CarDetails } from './scr/screens/CarDetails';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -34,7 +34,7 @@ export default function App() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<CarDetails />
+			<Routes />
 		</ThemeProvider>
 	);
 }

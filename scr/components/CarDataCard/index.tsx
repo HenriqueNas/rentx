@@ -2,6 +2,7 @@ import React from 'react';
 
 import Energy from '../../assets/energy.svg';
 import Gasoline from '../../assets/gasoline.svg';
+import { useAppNavigation } from '../../hooks/navigation';
 
 import {
 	Container,
@@ -30,8 +31,16 @@ interface Props {
 }
 
 export function CarDataCard({ data }: Props) {
+	const navigation = useAppNavigation();
+
+	function handleNavigate() {
+		navigation.navigate('CarDetails', {
+			data: data,
+		});
+	}
+
 	return (
-		<Container>
+		<Container onPress={handleNavigate}>
 			<Div>
 				<Div>
 					<Brand>{data.brand}</Brand>
