@@ -59,3 +59,14 @@ export const DateValue = styled.Text`
 	font-family: ${({ theme }) => theme.fonts.primary_medium};
 	color: ${({ theme }) => theme.color.shape};
 `;
+
+export const Content = styled.ScrollView.attrs({
+	showsVerticalScrollIndicator: false,
+	contentContainerStyle: {
+		paddingBottom: 24,
+	},
+})``;
+
+export const Footer = styled.View`
+	padding: 24px;
+`;

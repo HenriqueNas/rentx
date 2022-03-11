@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { RouteProp, useRoute } from '@react-navigation/native';
+
 import { useAppNavigation } from '../../hooks/navigation';
+import { AppStackParams } from '../../routes/routes';
 
 import { Button } from '../../components/Button';
 import { Optinal } from '../../components/Optinal';
-import { CarData } from '../../components/CarDataCard';
 import { ImageSlider } from '../../components/ImageSlider';
 import { GoBackButton } from '../../components/GoBackButton';
 
@@ -27,17 +28,30 @@ import {
 	Period,
 	Price,
 	OptionalGrid,
-	Description,
+	RentalPeriod,
+	IconWrapper,
+	CalendarIcon,
+	ArrowIcon,
+	DateInfo,
+	DateLabel,
+	DateValue,
+	RentalTotal,
+	TotalLabel,
+	TotalMath,
+	TotalResult,
 	Footer,
+	TotalInfo,
 } from './styles';
-import { AppStackParams } from '../../routes/routes';
 
-type CarDetailsRouteProps = RouteProp<AppStackParams, 'CarDetails'>;
+type SchedulingDetailsRouteProps = RouteProp<
+	AppStackParams,
+	'SchedulingDetails'
+>;
 
-export function CarDetails() {
+export function SchedulingDetails() {
 	const {
 		params: { data },
-	} = useRoute<CarDetailsRouteProps>();
+	} = useRoute<SchedulingDetailsRouteProps>();
 	const navigation = useAppNavigation();
 
 	const slids = [
@@ -47,9 +61,7 @@ export function CarDetails() {
 	];
 
 	function handleNavigate() {
-		navigation.navigate('Scheduling', {
-			data: data,
-		});
+		navigation.navigate('Home');
 	}
 
 	return (
@@ -73,6 +85,29 @@ export function CarDetails() {
 					</Div>
 				</Info>
 
+				<RentalPeriod>
+					<IconWrapper>
+						<CalendarIcon />
+					</IconWrapper>
+					<DateInfo>
+						<DateLabel>DE</DateLabel>
+						<DateValue>18/06/2021</DateValue>
+					</DateInfo>
+					<ArrowIcon />
+					<DateInfo>
+						<DateLabel>ATÉ</DateLabel>
+						<DateValue>22/06/2021</DateValue>
+					</DateInfo>
+				</RentalPeriod>
+
+				<RentalTotal>
+					<TotalInfo>
+						<TotalLabel>TOTAL</TotalLabel>
+						<TotalMath>R$ 580 x3 diárias</TotalMath>
+					</TotalInfo>
+					<TotalResult>R$ 2.900</TotalResult>
+				</RentalTotal>
+
 				<OptionalGrid>
 					<Optinal name="380km/h" icon={Speed} />
 					<Optinal name="3.2s" icon={Acceleration} />
@@ -81,16 +116,10 @@ export function CarDetails() {
 					<Optinal name="Auto" icon={Exchange} />
 					<Optinal name="2 pessoas" icon={People} />
 				</OptionalGrid>
-
-				<Description>
-					Este é automóvel desportivo. Surgiu do lendário touro de lide
-					indultado na praça Real Maestranza de Sevilla. É um belíssimo carro
-					para quem gosta de acelerar.
-				</Description>
 			</Details>
 
 			<Footer>
-				<Button title="Escolha o período do aluguel" onPress={handleNavigate} />
+				<Button title="Alugar Agora" onPress={handleNavigate} color="success" />
 			</Footer>
 		</Container>
 	);

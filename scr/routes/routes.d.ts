@@ -5,5 +5,10 @@ export type AppStackParams = {
 	CarDetails: {
 		data: CarData;
 	};
-	Scheduling: undefined;
+	Scheduling: {
+		data: CarData;
+	};
+	SchedulingDetails: {
+		data: CarData;
+	};
 };
