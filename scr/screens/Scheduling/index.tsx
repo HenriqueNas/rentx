@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { Dimensions, StatusBar } from 'react-native';
 
 import { RouteProp, useRoute } from '@react-navigation/native';
 
@@ -26,6 +26,8 @@ import {
 
 type SchedulingRouteProps = RouteProp<AppStackParams, 'Scheduling'>;
 
+const height = Dimensions.get('screen').height;
+
 export function Scheduling() {
 	const {
 		params: { data },
@@ -38,6 +40,11 @@ export function Scheduling() {
 		});
 	}
 
+	const title =
+		height > 800
+			? 'Escolha uma \ndata de início e \nfim do aluguel'
+			: 'Escolha uma data de início \ne fim do aluguel';
+
 	return (
 		<Container>
 			<Header>
@@ -48,11 +55,7 @@ export function Scheduling() {
 				/>
 				<GoBackButton color="background_secondary" />
 
-				<Title>
-					Escolha uma {'\n'}
-					data de início e {'\n'}
-					fim do aluguel
-				</Title>
+				<Title>{title}</Title>
 
 				<RentalPeriod>
 					<DateInfo>

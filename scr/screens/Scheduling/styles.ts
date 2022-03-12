@@ -1,6 +1,13 @@
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { Dimensions } from 'react-native';
 import styled, { css } from 'styled-components/native';
+
+import { RFValue } from 'react-native-responsive-fontsize';
+import {
+	getBottomSpace,
+	getStatusBarHeight,
+} from 'react-native-iphone-x-helper';
+
+const height = Dimensions.get('screen').height;
 
 export const Container = styled.View`
 	flex: 1;
@@ -11,7 +18,6 @@ export const Header = styled.View`
 	justify-content: space-between;
 
 	width: 100%;
-	height: 325px;
 	padding: 32px 24px;
 	padding-top: ${getStatusBarHeight() + 24}px;
 
@@ -21,9 +27,9 @@ export const Header = styled.View`
 export const Title = styled.Text`
 	color: ${({ theme }) => theme.color.shape};
 	font-family: ${({ theme }) => theme.fonts.secondary_medium};
-	font-size: ${RFValue(34)}px;
+	font-size: ${RFValue(height > 800 ? 32 : 24)}px;
 
-	margin: 32px 0;
+	margin: ${height > 800 ? 32 : 16}px 0;
 `;
 
 export const RentalPeriod = styled.View`
@@ -60,13 +66,15 @@ export const DateValue = styled.Text`
 	color: ${({ theme }) => theme.color.shape};
 `;
 
-export const Content = styled.ScrollView.attrs({
-	showsVerticalScrollIndicator: false,
-	contentContainerStyle: {
-		paddingBottom: 24,
-	},
-})``;
+export const Content = styled.View`
+	flex: 1;
+`;
 
 export const Footer = styled.View`
+	width: 100%;
+
 	padding: 24px;
+	padding-bottom: ${getBottomSpace() + 24}px;
+
+	background-color: ${({ theme }) => theme.color.background_primary};
 `;

@@ -1,14 +1,16 @@
 import { CarData } from '../components/CarDataCard';
+import { CarProps } from '../models/car';
 
 export type AppStackParams = {
 	Home: undefined;
 	CarDetails: {
-		data: CarData;
+		data: CarProps;
 	};
 	Scheduling: {
-		data: CarData;
+		data: CarProps;
 	};
 	SchedulingDetails: {
-		data: CarData;
+		data: CarProps;
 	};
+	SchedulingComplete: undefined;
 };

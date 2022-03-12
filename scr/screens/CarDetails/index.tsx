@@ -1,20 +1,23 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { useAppNavigation } from '../../hooks/navigation';
+import { AppStackParams } from '../../routes/routes';
 
 import { Button } from '../../components/Button';
 import { Optinal } from '../../components/Optinal';
-import { CarData } from '../../components/CarDataCard';
 import { ImageSlider } from '../../components/ImageSlider';
 import { GoBackButton } from '../../components/GoBackButton';
 
-import Speed from '../../assets/speed.svg';
-import Force from '../../assets/force.svg';
-import People from '../../assets/people.svg';
-import Gasoline from '../../assets/gasoline.svg';
-import Exchange from '../../assets/exchange.svg';
-import Acceleration from '../../assets/acceleration.svg';
+import SpeedSvg from '../../assets/speed.svg';
+import ForceSvg from '../../assets/force.svg';
+import PeopleSvg from '../../assets/people.svg';
+import ExchangeSvg from '../../assets/exchange.svg';
+import AccelerationSvg from '../../assets/acceleration.svg';
+import EnergySvg from '../../assets/energy.svg';
+import GasolineSvg from '../../assets/gasoline.svg';
+import HybridSvg from '../../assets/hybrid.svg';
 
 import {
 	Container,
@@ -30,21 +33,25 @@ import {
 	Description,
 	Footer,
 } from './styles';
-import { AppStackParams } from '../../routes/routes';
 
 type CarDetailsRouteProps = RouteProp<AppStackParams, 'CarDetails'>;
+
+export const accessoriesIconMap = {
+	speed: SpeedSvg,
+	turning_diameter: ForceSvg,
+	acceleration: AccelerationSvg,
+	gasoline: GasolineSvg,
+	electric: EnergySvg,
+	hybrid_motor: HybridSvg,
+	exchange: ExchangeSvg,
+	seats: PeopleSvg,
+};
 
 export function CarDetails() {
 	const {
 		params: { data },
 	} = useRoute<CarDetailsRouteProps>();
 	const navigation = useAppNavigation();
-
-	const slids = [
-		'https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b-450x299.png',
-		// 'https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b-450x299.png',
-		// 'https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b-450x299.png',
-	];
 
 	function handleNavigate() {
 		navigation.navigate('Scheduling', {
@@ -54,17 +61,18 @@ export function CarDetails() {
 
 	return (
 		<Container>
+			<StatusBar barStyle="dark-content" />
 			<Header>
 				<GoBackButton />
 			</Header>
 
-			<ImageSlider imagesUrl={slids} />
+			<ImageSlider imagesUrl={[data.photos[0]]} />
 
 			<Details>
 				<Info>
 					<Div>
 						<Brand>{data.brand}</Brand>
-						<Model>{data.model}</Model>
+						<Model>{data.name}</Model>
 					</Div>
 
 					<Div>
@@ -74,19 +82,16 @@ export function CarDetails() {
 				</Info>
 
 				<OptionalGrid>
-					<Optinal name="380km/h" icon={Speed} />
-					<Optinal name="3.2s" icon={Acceleration} />
-					<Optinal name="800 HP" icon={Force} />
-					<Optinal name="Gasolina" icon={Gasoline} />
-					<Optinal name="Auto" icon={Exchange} />
-					<Optinal name="2 pessoas" icon={People} />
+					{data.accessories.map((accessory) => (
+						<Optinal
+							key={accessory.name}
+							name={accessory.name}
+							icon={accessoriesIconMap[accessory.type]}
+						/>
+					))}
 				</OptionalGrid>
 
-				<Description>
-					Este é automóvel desportivo. Surgiu do lendário touro de lide
-					indultado na praça Real Maestranza de Sevilla. É um belíssimo carro
-					para quem gosta de acelerar.
-				</Description>
+				<Description>{data.about}</Description>
 			</Details>
 
 			<Footer>

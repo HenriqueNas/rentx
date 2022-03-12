@@ -1,8 +1,12 @@
 import React from 'react';
 
-import Energy from '../../assets/energy.svg';
-import Gasoline from '../../assets/gasoline.svg';
 import { useAppNavigation } from '../../hooks/navigation';
+
+import { CarProps } from '../../models/car';
+
+import EnergySvg from '../../assets/energy.svg';
+import GasolineSvg from '../../assets/gasoline.svg';
+import HybridSvg from '../../assets/hybrid.svg';
 
 import {
 	Container,
@@ -15,19 +19,8 @@ import {
 	CarImage,
 } from './styles';
 
-export interface CarData {
-	brand: string;
-	model: string;
-	rent: {
-		period: string;
-		price: number;
-	};
-	fuel: 'energy' | 'gasoline';
-	thumbnail: string;
-}
-
 interface Props {
-	data: CarData;
+	data: CarProps;
 }
 
 export function CarDataCard({ data }: Props) {
@@ -39,24 +32,26 @@ export function CarDataCard({ data }: Props) {
 		});
 	}
 
+	const fuelMap = {
+		gasoline: <GasolineSvg style={{ marginLeft: 24 }} />,
+		electric: <EnergySvg style={{ marginLeft: 24 }} />,
+		hybrid_motor: <HybridSvg style={{ marginLeft: 24 }} />,
+	};
+
 	return (
 		<Container onPress={handleNavigate}>
 			<Div>
 				<Div>
 					<Brand>{data.brand}</Brand>
-					<Model>{data.model}</Model>
+					<Model>{data.name}</Model>
 				</Div>
 
 				<Info>
 					<Div>
-						<Period>{data.rent.period}</Period>
-						<Price>{data.rent.price}</Price>
+						<Period>period</Period>
+						<Price>price</Price>
 					</Div>
-					{data.fuel === 'energy' ? (
-						<Energy style={{ marginLeft: 24 }} />
-					) : (
-						<Gasoline style={{ marginLeft: 24 }} />
-					)}
+					{fuelMap[data.fuel_type]}
 				</Info>
 			</Div>
 

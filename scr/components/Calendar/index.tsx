@@ -7,6 +7,7 @@ import {
 import { Feather } from '@expo/vector-icons';
 
 import { useTheme } from 'styled-components';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 LocaleConfig.locales['pt-br'] = {
 	monthNames: [
@@ -60,7 +61,7 @@ export function Calendar() {
 			firstDay={1}
 			renderArrow={(direction) => (
 				<Feather
-					size={24}
+					size={RFValue(24)}
 					color={theme.color.text}
 					name={direction === 'left' ? 'chevron-left' : 'chevron-right'}
 				/>
@@ -69,17 +70,16 @@ export function Calendar() {
 				backgroundColor: theme.color.background_secondary,
 				borderBottomWidth: 0.6,
 				borderBottomColor: theme.color.text_details,
-				paddingBottom: 10,
-				marginBottom: 10,
+				paddingBottom: 6,
 			}}
 			theme={{
 				textDayFontFamily: theme.fonts.primary_regular,
 				textDayHeaderFontFamily: theme.fonts.primary_medium,
-				textDayHeaderFontSize: 10,
+				textDayHeaderFontSize: RFValue(10),
 				todayTextColor: theme.color.main,
 				monthTextColor: theme.color.title,
 				textMonthFontFamily: theme.fonts.secondary_medium,
-				textMonthFontSize: 20,
+				textMonthFontSize: RFValue(20),
 				arrowStyle: {
 					marginHorizontal: -15,
 				},
