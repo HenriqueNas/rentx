@@ -10,7 +10,12 @@ export type AppStackParams = {
 		data: CarProps;
 	};
 	SchedulingDetails: {
-		data: CarProps;
+		carData: CarProps;
+		rentalInfo: {
+			start: string;
+			end: string;
+			totalDays: number;
+		};
 	};
 	SchedulingComplete: undefined;
 };

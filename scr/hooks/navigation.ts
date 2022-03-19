@@ -4,42 +4,8 @@ import { CarProps } from '../models/car';
 
 import { AppStackParams } from '../routes/routes';
 
-interface NavigatioProps {
-	navigate: (
-		...args:
-			| [screen: keyof AppStackParams]
-			| [
-					screen: keyof AppStackParams,
-					params: {
-						data: CarProps;
-					}
-			  ]
-	) => void;
-	goBack: () => void;
-}
-
-export function useAppNavigation(): NavigatioProps {
+export function useAppNavigation() {
 	const navigation = useNavigation<StackNavigationProp<AppStackParams>>();
 
-	function navigate(
-		...args:
-			| [screen: keyof AppStackParams]
-			| [
-					screen: keyof AppStackParams,
-					params: {
-						data: CarProps;
-					}
-			  ]
-	) {
-		navigation.navigate(...args);
-	}
-
-	function goBack() {
-		navigation.goBack();
-	}
-
-	return {
-		navigate,
-		goBack,
-	};
+	return navigation;
 }

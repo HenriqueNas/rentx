@@ -7,12 +7,24 @@ import { Container, Title } from './styles';
 interface Props {
 	title: string;
 	color?: ColorType;
+	disabled?: boolean;
 	onPress: () => void;
 }
 
-export function Button({ title, color = 'main', onPress, ...rest }: Props) {
+export function Button({
+	title,
+	color = 'main',
+	disabled = false,
+	onPress,
+	...rest
+}: Props) {
+	function handlePress() {
+		if (disabled) return;
+		onPress();
+	}
+
 	return (
-		<Container onPress={onPress} color={color} {...rest}>
+		<Container disabled={disabled} onPress={onPress} color={color} {...rest}>
 			<Title>{title}</Title>
 		</Container>
 	);

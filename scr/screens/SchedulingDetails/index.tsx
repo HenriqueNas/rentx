@@ -45,7 +45,7 @@ type SchedulingDetailsRouteProps = RouteProp<
 
 export function SchedulingDetails() {
 	const {
-		params: { data },
+		params: { carData, rentalInfo },
 	} = useRoute<SchedulingDetailsRouteProps>();
 	const navigation = useAppNavigation();
 
@@ -60,18 +60,18 @@ export function SchedulingDetails() {
 				<GoBackButton />
 			</Header>
 
-			<ImageSlider imagesUrl={[data.photos[0]]} />
+			<ImageSlider imagesUrl={[carData.photos[0]]} />
 
 			<Details>
 				<Info>
 					<Div>
-						<Brand>{data.brand}</Brand>
-						<Model>{data.name}</Model>
+						<Brand>{carData.brand}</Brand>
+						<Model>{carData.name}</Model>
 					</Div>
 
 					<Div>
-						<Period>{data.rent.period}</Period>
-						<Price>R$ {data.rent.price}</Price>
+						<Period>{carData.rent.period}</Period>
+						<Price>R$ {carData.rent.price}</Price>
 					</Div>
 				</Info>
 
@@ -81,25 +81,29 @@ export function SchedulingDetails() {
 					</IconWrapper>
 					<DateInfo>
 						<DateLabel>DE</DateLabel>
-						<DateValue>18/06/2021</DateValue>
+						<DateValue>{rentalInfo.start}</DateValue>
 					</DateInfo>
 					<ArrowIcon />
 					<DateInfo>
 						<DateLabel>ATÉ</DateLabel>
-						<DateValue>22/06/2021</DateValue>
+						<DateValue>{rentalInfo.end}</DateValue>
 					</DateInfo>
 				</RentalPeriod>
 
 				<RentalTotal>
 					<TotalInfo>
 						<TotalLabel>TOTAL</TotalLabel>
-						<TotalMath>R$ 580 x3 diárias</TotalMath>
+						<TotalMath>
+							R$ {carData.rent.price} x{rentalInfo.totalDays} diárias
+						</TotalMath>
 					</TotalInfo>
-					<TotalResult>R$ 2.900</TotalResult>
+					<TotalResult>
+						R$ {carData.rent.price * rentalInfo.totalDays}
+					</TotalResult>
 				</RentalTotal>
 
 				<OptionalGrid>
-					{data.accessories.map((accessory) => (
+					{carData.accessories.map((accessory) => (
 						<Optinal
 							key={accessory.name}
 							name={accessory.name}

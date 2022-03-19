@@ -6,6 +6,7 @@ import { ColorType } from '../../styles/theme';
 
 interface ContainerProps {
 	color: ColorType;
+	disabled: boolean;
 }
 
 export const Container = styled.TouchableOpacity<ContainerProps>`
@@ -14,6 +15,7 @@ export const Container = styled.TouchableOpacity<ContainerProps>`
 
 	padding: 16px;
 	background-color: ${({ theme, color }) => theme.color[color]};
+	opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 
 export const Title = styled.Text`

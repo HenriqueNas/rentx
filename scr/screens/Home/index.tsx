@@ -7,7 +7,7 @@ import Logo from '../../assets/logo.svg';
 
 import { CarDataCard } from '../../components/CarDataCard';
 import { CarProps } from '../../models/car';
-import { getCars } from '../../services/api';
+import * as api from '../../services/api';
 
 import { Container, Header, TotalCars, CarsList } from './styles';
 
@@ -16,7 +16,7 @@ export function Home() {
 
 	useEffect(() => {
 		(async () => {
-			const cars = await getCars();
+			const cars = await api.getCars();
 			setCarsData(cars);
 		})();
 	}, []);

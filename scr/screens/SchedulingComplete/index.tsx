@@ -1,10 +1,11 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 
 import { useAppNavigation } from '../../hooks/navigation';
 
 import {
-	CheckBox,
 	Container,
+	CheckBox,
 	LogoBackground,
 	Title,
 	Text,
@@ -21,6 +22,7 @@ export function SchedulingComplete() {
 
 	return (
 		<Container>
+			<StatusBar barStyle="light-content" />
 			<LogoBackground />
 			<CheckBox />
 			<Title>Carro alugado!</Title>
