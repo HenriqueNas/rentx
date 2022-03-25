@@ -1,3 +1,4 @@
+import { Dimensions, FlatList, FlatListProps } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
@@ -26,8 +27,20 @@ export const ImageIndex = styled.View<IndexProps>`
 		active ? theme.color.title : theme.color.text};
 `;
 
+export const ImageList = styled(
+	FlatList as new (props: FlatListProps<string>) => FlatList<string>
+).attrs({
+	horizontal: true,
+	showsHorizontalScrollIndicator: false,
+	bounces: false,
+	contentContainerStyle: { alignItems: 'center' },
+	snapToAlignment: 'center',
+	decelerationRate: 'fast',
+	snapToInterval: Dimensions.get('window').width,
+})``;
+
 export const CarImageWrapper = styled.View`
-	width: 100%;
+	width: ${Dimensions.get('window').width}px;
 	height: ${RFPercentage(20)}px;
 
 	align-items: center;

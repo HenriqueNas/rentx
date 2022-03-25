@@ -54,7 +54,7 @@ export function RentedCars() {
 				keyExtractor={(item) =>
 					item.car.id.concat(item.startDate).concat(item.endDate)
 				}
-				renderItem={(item) => <CarDataCard schedule={item.item} />}
+				renderItem={({ item }) => <CarDataCard schedule={item} />}
 			/>
 		</Container>
 	);

@@ -32,6 +32,7 @@ export function Calendar({ markedDates, onDayPress }: CalendarProps) {
 
 	return (
 		<CustomCalendar
+			enableSwipeMonths
 			firstDay={1}
 			minDate={new Date().toString()}
 			onDayPress={onDayPress}

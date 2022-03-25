@@ -68,6 +68,8 @@ export function SchedulingDetails() {
 			const formattedDays = rentDays.map((date) => format(date, 'yyyy-MM-dd'));
 
 			await api.scheduleCar(carData.id, formattedDays);
+			setIsLoading(false);
+
 			navigation.navigate('SchedulingComplete');
 		} catch {
 			Alert.alert(
@@ -84,7 +86,7 @@ export function SchedulingDetails() {
 				<GoBackButton />
 			</Header>
 
-			<ImageSlider imagesUrl={[carData.photos[0]]} />
+			<ImageSlider imagesUrl={carData.photos} />
 
 			<Details>
 				<Info>

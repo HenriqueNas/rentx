@@ -42,7 +42,7 @@ export const CarsList = styled(
 
 export const RentedCars = styled(RectButton)`
 	background-color: ${({ theme }) => theme.color.main};
-	border-radius: 30px;
+	border-radius: ${RFValue(30)}px;
 
 	align-items: center;
 	justify-content: center;

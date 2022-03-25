@@ -39,3 +39,21 @@ export async function getUnavailableDates(id: string): Promise<string[]> {
 		throw new Error(error?.message);
 	}
 }
+
+export async function scheduleCar(
+	id: string,
+	formattedDays: string[]
+): Promise<void> {
+	try {
+		const schedulesByCar = await getUnavailableDates(id);
+
+		const unavailable_dates = [...schedulesByCar, ...formattedDays];
+
+		await api.put(`/schedules_bycars/${id}`, {
+			id,
+			unavailable_dates,
+		});
+	} catch (error) {
+		throw new Error(error?.message);
+	}
+}

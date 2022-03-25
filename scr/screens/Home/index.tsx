@@ -46,13 +46,13 @@ export function Home() {
 			<Header>
 				<Logo height={RFValue(12)} width={RFValue(108)} />
 
-				<TotalCars>12 carros</TotalCars>
+				<TotalCars>Total de {carsData.length} carros</TotalCars>
 			</Header>
 
 			<CarsList
 				data={carsData}
-				keyExtractor={(item) => item.id}
-				renderItem={(item) => <CarDataCard car={item.item} />}
+				keyExtractor={({ id }) => id}
+				renderItem={({ item }) => <CarDataCard car={item} />}
 			/>
 
 			<RentedCars onPress={handleOpenRentedCars}>

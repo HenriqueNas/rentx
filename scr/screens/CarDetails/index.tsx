@@ -66,7 +66,7 @@ export function CarDetails() {
 				<GoBackButton />
 			</Header>
 
-			<ImageSlider imagesUrl={[data.photos[0]]} />
+			<ImageSlider imagesUrl={data.photos} />
 
 			<Details>
 				<Info>
