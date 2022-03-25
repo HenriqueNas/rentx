@@ -1,16 +1,29 @@
 import axios from 'axios';
-import { CarProps } from '../models/car';
+
+import { CarDTO } from '../models/car';
+import { ScheduleDTO } from '../models/schedule';
 
 const api = axios.create({
 	baseURL: 'http://192.168.1.6:3333/',
 });
 
-export async function getCars(): Promise<CarProps[]> {
+export async function getCars(): Promise<CarDTO[]> {
 	try {
 		const response = await api.get('/cars');
-		const cars: CarProps[] = response.data;
+		const cars: CarDTO[] = response.data;
 
 		return cars;
+	} catch (error) {
+		throw new Error(error?.message);
+	}
+}
+
+export async function getRentedCars(userId: string): Promise<ScheduleDTO[]> {
+	try {
+		const response = await api.get(`/schedules_byuser?user_id=${userId}`);
+		const schedules: ScheduleDTO[] = response.data;
+
+		return schedules;
 	} catch (error) {
 		throw new Error(error?.message);
 	}

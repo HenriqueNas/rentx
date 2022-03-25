@@ -1,17 +1,18 @@
 import { CarData } from '../components/CarDataCard';
-import { CarProps } from '../models/car';
+import { CarDTO } from '../models/car';
 
 export type AppStackParams = {
 	Home: undefined;
+	RentedCars: undefined;
 	CarDetails: {
-		data: CarProps;
+		data: CarDTO;
 	};
 	Scheduling: {
-		data: CarProps;
+		data: CarDTO;
 	};
 	SchedulingDetails: {
-		carData: CarProps;
-		rentalInfo: {
+		carData: CarDTO;
+		rentInfo: {
 			start: string;
 			end: string;
 			totalDays: number;

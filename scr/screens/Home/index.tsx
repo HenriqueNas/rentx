@@ -3,16 +3,31 @@ import { StatusBar } from 'react-native';
 
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import Logo from '../../assets/logo.svg';
+import * as api from '../../services/api';
+import { useAppNavigation } from '../../hooks/navigation';
 
 import { CarDataCard } from '../../components/CarDataCard';
-import { CarProps } from '../../models/car';
-import * as api from '../../services/api';
+import { CarDTO } from '../../models/car';
 
-import { Container, Header, TotalCars, CarsList } from './styles';
+import Logo from '../../assets/logo.svg';
+
+import {
+	Container,
+	Header,
+	TotalCars,
+	CarsList,
+	RentedCars,
+	CarIcon,
+} from './styles';
 
 export function Home() {
-	const [carsData, setCarsData] = useState<CarProps[]>([] as CarProps[]);
+	const navigation = useAppNavigation();
+
+	const [carsData, setCarsData] = useState<CarDTO[]>([] as CarDTO[]);
+
+	function handleOpenRentedCars() {
+		navigation.navigate('RentedCars');
+	}
 
 	useEffect(() => {
 		(async () => {
@@ -37,8 +52,12 @@ export function Home() {
 			<CarsList
 				data={carsData}
 				keyExtractor={(item) => item.id}
-				renderItem={(item) => <CarDataCard data={item.item} />}
+				renderItem={(item) => <CarDataCard car={item.item} />}
 			/>
+
+			<RentedCars onPress={handleOpenRentedCars}>
+				<CarIcon />
+			</RentedCars>
 		</Container>
 	);
 }

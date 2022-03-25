@@ -1,7 +1,10 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
-
+import React, { useState } from 'react';
+import { Alert, StatusBar } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
+
+import { addDays, eachDayOfInterval, format, parse } from 'date-fns';
+
+import * as api from '../../services/api';
 
 import { useAppNavigation } from '../../hooks/navigation';
 import { AppStackParams } from '../../routes/routes';
@@ -45,12 +48,33 @@ type SchedulingDetailsRouteProps = RouteProp<
 
 export function SchedulingDetails() {
 	const {
-		params: { carData, rentalInfo },
+		params: { carData, rentInfo },
 	} = useRoute<SchedulingDetailsRouteProps>();
 	const navigation = useAppNavigation();
 
-	function handleNavigate() {
-		navigation.navigate('SchedulingComplete');
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	async function handleSubmit() {
+		setIsLoading(true);
+		try {
+			const starDate = parse(rentInfo.start, 'dd/MM/yyyy', new Date());
+			const endDate = parse(rentInfo.end, 'dd/MM/yyyy', new Date());
+
+			const rentDays = eachDayOfInterval({
+				start: starDate,
+				end: endDate,
+			});
+
+			const formattedDays = rentDays.map((date) => format(date, 'yyyy-MM-dd'));
+
+			await api.scheduleCar(carData.id, formattedDays);
+			navigation.navigate('SchedulingComplete');
+		} catch {
+			Alert.alert(
+				'Ocorreu algum erro no agendamento.\nTente novamente mais tarde!'
+			);
+			setIsLoading(false);
+		}
 	}
 
 	return (
@@ -81,12 +105,12 @@ export function SchedulingDetails() {
 					</IconWrapper>
 					<DateInfo>
 						<DateLabel>DE</DateLabel>
-						<DateValue>{rentalInfo.start}</DateValue>
+						<DateValue>{rentInfo.start}</DateValue>
 					</DateInfo>
 					<ArrowIcon />
 					<DateInfo>
 						<DateLabel>ATÉ</DateLabel>
-						<DateValue>{rentalInfo.end}</DateValue>
+						<DateValue>{rentInfo.end}</DateValue>
 					</DateInfo>
 				</RentalPeriod>
 
@@ -94,11 +118,11 @@ export function SchedulingDetails() {
 					<TotalInfo>
 						<TotalLabel>TOTAL</TotalLabel>
 						<TotalMath>
-							R$ {carData.rent.price} x{rentalInfo.totalDays} diárias
+							R$ {carData.rent.price} x{rentInfo.totalDays} diárias
 						</TotalMath>
 					</TotalInfo>
 					<TotalResult>
-						R$ {carData.rent.price * rentalInfo.totalDays}
+						R$ {carData.rent.price * rentInfo.totalDays}
 					</TotalResult>
 				</RentalTotal>
 
@@ -114,7 +138,12 @@ export function SchedulingDetails() {
 			</Details>
 
 			<Footer>
-				<Button title="Alugar Agora" onPress={handleNavigate} color="success" />
+				<Button
+					isLoading={isLoading}
+					title="Alugar Agora"
+					onPress={handleSubmit}
+					color="success"
+				/>
 			</Footer>
 		</Container>
 	);

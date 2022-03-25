@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Home } from '../screens/Home';
+import { RentedCars } from '../screens/RentedCars';
 import { CarDetails } from '../screens/CarDetails';
 import { Scheduling } from '../screens/Scheduling';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -18,6 +19,7 @@ export function AppRoutes() {
 			}}
 		>
 			<Screen name="Home" component={Home} />
+			<Screen name="RentedCars" component={RentedCars} />
 			<Screen name="CarDetails" component={CarDetails} />
 			<Screen name="Scheduling" component={Scheduling} />
 			<Screen name="SchedulingDetails" component={SchedulingDetails} />

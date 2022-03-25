@@ -60,7 +60,7 @@ export function Scheduling() {
 	function handleNavigate() {
 		navigation.navigate('SchedulingDetails', {
 			carData: data,
-			rentalInfo: {
+			rentInfo: {
 				start: startDate,
 				end: endDate,
 				totalDays: getTotalRentDays(),

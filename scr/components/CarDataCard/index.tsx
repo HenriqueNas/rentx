@@ -2,11 +2,13 @@ import React from 'react';
 
 import { useAppNavigation } from '../../hooks/navigation';
 
-import { CarProps } from '../../models/car';
+import { ScheduleDTO } from '../../models/schedule';
+import { CarDTO } from '../../models/car';
 
 import EnergySvg from '../../assets/energy.svg';
 import GasolineSvg from '../../assets/gasoline.svg';
 import HybridSvg from '../../assets/hybrid.svg';
+import ArrowSvg from '../../assets/arrow.svg';
 
 import {
 	Container,
@@ -17,18 +19,25 @@ import {
 	Period,
 	Price,
 	CarImage,
+	PeriodLabel,
+	RentalPeriod,
+	DateLabel,
+	RentalDates,
 } from './styles';
 
 interface Props {
-	data: CarProps;
+	car?: CarDTO;
+	schedule?: ScheduleDTO;
 }
 
-export function CarDataCard({ data }: Props) {
+export function CarDataCard({ car, schedule }: Props) {
 	const navigation = useAppNavigation();
+
+	const carData: CarDTO = car || schedule.car;
 
 	function handleNavigate() {
 		navigation.navigate('CarDetails', {
-			data: data,
+			data: carData,
 		});
 	}
 
@@ -39,23 +48,35 @@ export function CarDataCard({ data }: Props) {
 	};
 
 	return (
-		<Container onPress={handleNavigate}>
-			<Div>
+		<>
+			<Container onPress={handleNavigate}>
 				<Div>
-					<Brand>{data.brand}</Brand>
-					<Model>{data.name}</Model>
+					<Div>
+						<Brand>{carData.brand}</Brand>
+						<Model>{carData.name}</Model>
+					</Div>
+
+					<Info>
+						<Div>
+							<Period>{carData.rent.period}</Period>
+							<Price>R$ {carData.rent.price}</Price>
+						</Div>
+						{fuelMap[carData.fuel_type]}
+					</Info>
 				</Div>
 
-				<Info>
-					<Div>
-						<Period>period</Period>
-						<Price>price</Price>
-					</Div>
-					{fuelMap[data.fuel_type]}
-				</Info>
-			</Div>
-
-			<CarImage source={{ uri: data.thumbnail }} />
-		</Container>
+				<CarImage source={{ uri: carData.thumbnail }} />
+			</Container>
+			{schedule && (
+				<RentalPeriod>
+					<PeriodLabel>período</PeriodLabel>
+					<RentalDates>
+						<DateLabel>{schedule.startDate}</DateLabel>
+						<ArrowSvg />
+						<DateLabel>{schedule.endDate}</DateLabel>
+					</RentalDates>
+				</RentalPeriod>
+			)}
+		</>
 	);
 }

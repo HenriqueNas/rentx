@@ -17,7 +17,7 @@ type Rent = {
 	price: number;
 };
 
-export interface CarProps {
+export interface CarDTO {
 	id: string;
 	brand: string;
 	name: string;
