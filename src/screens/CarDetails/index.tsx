@@ -1,6 +1,14 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 
+import Animated, {
+	Extrapolate,
+	interpolate,
+	useAnimatedScrollHandler,
+	useAnimatedStyle,
+	useSharedValue,
+} from 'react-native-reanimated';
+
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { useAppNavigation } from '../../hooks/navigation';
 import { AppStackParams } from '../../routes/routes';
@@ -53,6 +61,28 @@ export function CarDetails() {
 	} = useRoute<CarDetailsRouteProps>();
 	const navigation = useAppNavigation();
 
+	const scrollY = useSharedValue(0);
+	const scrollHandler = useAnimatedScrollHandler((event) => {
+		scrollY.value = event.contentOffset.y;
+	});
+
+	const headerStyleAnimation = useAnimatedStyle(() => {
+		return {
+			height: interpolate(
+				scrollY.value,
+				[0, 200],
+				[200, 40],
+				Extrapolate.CLAMP
+			),
+		};
+	});
+
+	const sliderCarsStyleAnimation = useAnimatedStyle(() => {
+		return {
+			opacity: interpolate(scrollY.value, [0, 150], [1, 0]),
+		};
+	});
+
 	function handleNavigate() {
 		navigation.navigate('Scheduling', {
 			data: data,
@@ -62,13 +92,25 @@ export function CarDetails() {
 	return (
 		<Container>
 			<StatusBar barStyle="dark-content" />
-			<Header>
-				<GoBackButton />
-			</Header>
 
-			<ImageSlider imagesUrl={data.photos} />
+			<Animated.View style={headerStyleAnimation}>
+				<Header>
+					<GoBackButton />
+				</Header>
 
-			<Details>
+				<Animated.View style={sliderCarsStyleAnimation}>
+					<ImageSlider imagesUrl={data.photos} />
+				</Animated.View>
+			</Animated.View>
+
+			<Animated.ScrollView
+				onScroll={scrollHandler}
+				scrollEventThrottle={16}
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{
+					padding: 24,
+				}}
+			>
 				<Info>
 					<Div>
 						<Brand>{data.brand}</Brand>
@@ -91,8 +133,14 @@ export function CarDetails() {
 					))}
 				</OptionalGrid>
 
-				<Description>{data.about}</Description>
-			</Details>
+				<Description>
+					{data.about}
+					{data.about}
+					{data.about}
+					{data.about}
+					{data.about}
+				</Description>
+			</Animated.ScrollView>
 
 			<Footer>
 				<Button title="Escolha o período do aluguel" onPress={handleNavigate} />

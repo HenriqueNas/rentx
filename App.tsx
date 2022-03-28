@@ -14,10 +14,8 @@ import {
 	Archivo_600SemiBold,
 } from '@expo-google-fonts/archivo';
 
-import { Routes } from './scr/routes';
-import theme from './scr/styles/theme';
-import { Home } from './scr/screens/Home';
-import { NavigationContainer } from '@react-navigation/native';
+import { Routes } from './src/routes';
+import theme from './src/styles/theme';
 
 export default function App() {
 	const [fontsLoaded] = useFonts({

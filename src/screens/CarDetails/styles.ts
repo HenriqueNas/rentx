@@ -12,12 +12,7 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-
 	position: absolute;
-	margin-top: ${getStatusBarHeight() + 36}px;
 	margin-left: 24px;
 `;
 

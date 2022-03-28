@@ -4,6 +4,7 @@ import { StatusBar } from 'react-native';
 import { ScheduleDTO } from '../../models/schedule';
 import * as api from '../../services/api';
 
+import { Loading } from '../../components/Loading';
 import { CarDataCard } from '../../components/CarDataCard';
 import { GoBackButton } from '../../components/GoBackButton';
 
@@ -22,11 +23,13 @@ export function RentedCars() {
 	const [schedulesData, setSchedulesData] = useState<ScheduleDTO[]>(
 		[] as ScheduleDTO[]
 	);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	useEffect(() => {
 		(async () => {
 			const schedules = await api.getRentedCars('1');
 			setSchedulesData(schedules);
+			setIsLoading(false);
 		})();
 	}, []);
 
@@ -49,13 +52,17 @@ export function RentedCars() {
 				<TotalRentalsValue>{schedulesData.length}</TotalRentalsValue>
 			</TotalRentalsWrapper>
 
-			<CarsList
-				data={schedulesData}
-				keyExtractor={(item) =>
-					item.car.id.concat(item.startDate).concat(item.endDate)
-				}
-				renderItem={({ item }) => <CarDataCard schedule={item} />}
-			/>
+			{isLoading ? (
+				<Loading />
+			) : (
+				<CarsList
+					data={schedulesData}
+					keyExtractor={(item) =>
+						item.car.id.concat(item.startDate).concat(item.endDate)
+					}
+					renderItem={({ item }) => <CarDataCard schedule={item} />}
+				/>
+			)}
 		</Container>
 	);
 }
