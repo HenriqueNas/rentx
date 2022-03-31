@@ -1,9 +1,11 @@
+import styled from 'styled-components/native';
+
 import {
 	getStatusBarHeight,
 	getBottomSpace,
 } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
+import Animated from 'react-native-reanimated';
 
 export const Container = styled.View`
 	flex: 1;
@@ -11,16 +13,20 @@ export const Container = styled.View`
 	background-color: ${({ theme }) => theme.color.background_secondary};
 `;
 
+export const View = styled(Animated.View)``;
+
 export const Header = styled.View`
 	position: absolute;
 	margin-left: 24px;
 `;
 
-export const Details = styled.ScrollView.attrs({
+export const Details = styled(Animated.ScrollView).attrs({
 	showsVerticalScrollIndicator: false,
-})`
-	padding: 0 24px;
-`;
+	scrollEventThrottle: 16,
+	contentContainerStyle: {
+		padding: 24,
+	},
+})``;
 
 export const Info = styled.View`
 	align-items: center;

@@ -1,3 +1,4 @@
+import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
 
 import BrandSvg from '../../assets/brand.svg';
@@ -9,6 +10,10 @@ export const Container = styled.View`
 	align-items: center;
 
 	background-color: ${({ theme }) => theme.color.header};
+`;
+
+export const ContentWrapper = styled(Animated.View)`
+	position: absolute;
 `;
 
 export const Brand = styled(BrandSvg).attrs({

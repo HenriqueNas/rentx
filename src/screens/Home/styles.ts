@@ -1,8 +1,6 @@
 import styled from 'styled-components/native';
 import { FlatList, FlatListProps } from 'react-native';
 
-import { Ionicons } from '@expo/vector-icons';
-import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import { CarDTO } from '../../models/car';
@@ -39,25 +37,3 @@ export const CarsList = styled(
 	},
 	showsVerticalScrollIndicator: false,
 })``;
-
-export const RentedCars = styled(RectButton)`
-	background-color: ${({ theme }) => theme.color.main};
-	border-radius: ${RFValue(30)}px;
-
-	align-items: center;
-	justify-content: center;
-
-	width: ${RFValue(60)}px;
-	height: ${RFValue(60)}px;
-
-	position: absolute;
-	bottom: 24px;
-	right: 24px;
-`;
-
-export const CarIcon = styled(Ionicons).attrs({
-	name: 'ios-car-sport',
-})`
-	font-size: ${RFValue(32)}px;
-	color: ${({ theme }) => theme.color.background_secondary};
-`;

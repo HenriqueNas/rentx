@@ -142,7 +142,7 @@ export function Scheduling() {
 				<Button
 					title="Confirmar"
 					onPress={handleNavigate}
-					disabled={getTotalRentDays() <= 0}
+					enabled={getTotalRentDays() > 0}
 				/>
 			</Footer>
 		</Container>

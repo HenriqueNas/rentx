@@ -1,33 +1,8 @@
-interface ITheme {
-	color: IColors;
-	fonts: IFonts;
-}
+type colors = typeof theme.color;
 
-interface IFonts {
-	primary_regular: string;
-	primary_medium: string;
-	secondary_regular: string;
-	secondary_medium: string;
-	secondary_bold: string;
-}
-interface IColors {
-	header: string;
-	background_primary: string;
-	background_secondary: string;
-	shape: string;
-	shape_dark: string;
-	text: string;
-	text_details: string;
-	title: string;
-	line: string;
-	main: string;
-	main_light: string;
-	success: string;
-}
+export type ColorType = keyof colors;
 
-export type ColorType = keyof IColors;
-
-const theme: ITheme = {
+const theme = {
 	color: {
 		header: '#1B1B1F',
 

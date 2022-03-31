@@ -20,3 +20,15 @@ export type AppStackParams = {
 	};
 	SchedulingComplete: undefined;
 };
+
+export type AuthStackParams = {
+	Splash: undefined;
+	Login: undefined;
+	Register: undefined;
+	Password: {
+		name: string;
+		email: string;
+		drivingLicense: string;
+	};
+	RegisterComplete: undefined;
+};

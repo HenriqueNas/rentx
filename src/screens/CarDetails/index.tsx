@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 
-import Animated, {
+import {
 	Extrapolate,
 	interpolate,
 	useAnimatedScrollHandler,
@@ -29,6 +29,7 @@ import HybridSvg from '../../assets/hybrid.svg';
 
 import {
 	Container,
+	View,
 	Header,
 	Details,
 	Info,
@@ -93,24 +94,17 @@ export function CarDetails() {
 		<Container>
 			<StatusBar barStyle="dark-content" />
 
-			<Animated.View style={headerStyleAnimation}>
+			<View style={headerStyleAnimation}>
 				<Header>
 					<GoBackButton />
 				</Header>
 
-				<Animated.View style={sliderCarsStyleAnimation}>
+				<View style={sliderCarsStyleAnimation}>
 					<ImageSlider imagesUrl={data.photos} />
-				</Animated.View>
-			</Animated.View>
+				</View>
+			</View>
 
-			<Animated.ScrollView
-				onScroll={scrollHandler}
-				scrollEventThrottle={16}
-				showsVerticalScrollIndicator={false}
-				contentContainerStyle={{
-					padding: 24,
-				}}
-			>
+			<Details onScroll={scrollHandler}>
 				<Info>
 					<Div>
 						<Brand>{data.brand}</Brand>
@@ -133,14 +127,8 @@ export function CarDetails() {
 					))}
 				</OptionalGrid>
 
-				<Description>
-					{data.about}
-					{data.about}
-					{data.about}
-					{data.about}
-					{data.about}
-				</Description>
-			</Animated.ScrollView>
+				<Description>{data.about}</Description>
+			</Details>
 
 			<Footer>
 				<Button title="Escolha o período do aluguel" onPress={handleNavigate} />

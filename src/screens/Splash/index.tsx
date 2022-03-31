@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Dimensions } from 'react-native';
 
-import Animated, {
+import {
 	useSharedValue,
 	useAnimatedStyle,
 	withTiming,
@@ -10,14 +10,17 @@ import Animated, {
 	runOnJS,
 } from 'react-native-reanimated';
 
-import { useAppNavigation } from '../../hooks/navigation';
+import { useAuth } from '../../contexts/auth';
+import { useAppNavigation, useAuthNavigation } from '../../hooks/navigation';
 
-import { Container, Brand, Logo } from './styles';
+import { Container, ContentWrapper, Brand, Logo } from './styles';
 
 const WIDTH = Dimensions.get('window').width;
 
 export function Splash() {
-	const navigation = useAppNavigation();
+	const { isAuth } = useAuth();
+	const authNavigation = useAuthNavigation();
+	const appNavigation = useAppNavigation();
 
 	const splashAnimation = useSharedValue(0);
 
@@ -44,7 +47,7 @@ export function Splash() {
 	});
 
 	function goToHomeScreen() {
-		navigation.navigate('Home');
+		isAuth ? appNavigation.navigate('Home') : authNavigation.navigate('Login');
 	}
 
 	useEffect(() => {
@@ -62,12 +65,12 @@ export function Splash() {
 
 	return (
 		<Container>
-			<Animated.View style={[brandStyle, { position: 'absolute' }]}>
+			<ContentWrapper style={brandStyle}>
 				<Brand />
-			</Animated.View>
-			<Animated.View style={[logoStyle, { position: 'absolute' }]}>
+			</ContentWrapper>
+			<ContentWrapper style={logoStyle}>
 				<Logo />
-			</Animated.View>
+			</ContentWrapper>
 		</Container>
 	);
 }
